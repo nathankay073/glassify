@@ -37,7 +37,7 @@ jobs:
       - name: Install tools
         run: |
           brew install make dpkg ldid
-          python3 -m pip install --break-system-packages git+https://github.com/asdfzxcvbn/pyzule-rw.git pillow
+          brew install uv && uv tool install --with pillow 'cyan @ git+https://github.com/asdfzxcvbn/pyzule-rw' && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Download IPA
         run: |
