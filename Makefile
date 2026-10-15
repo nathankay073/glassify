@@ -20,7 +20,7 @@ build:    ## FLEX + glass IPA into out/
 APP_NAME ?= Glassify
 APP_ICON ?= icons/Glassify.png
 release:  ## glass only, no FLEX
-	./scripts/pipeline.sh $(IPA) --no-flex --name "$(APP_NAME)" --icon "$(APP_ICON)"
+	./scripts/pipeline.sh $(IPA) --no-flex
 # The tweak alone, for injecting into a clean Spotify IPA with Feather (or any signer that takes a .deb). The flag
 # table comes from the IPA in ipa/ the first time; without one, the last table extracted is used. What the IPA build
 # changes in the app itself (the Live Activity, Music Haptics in the background, the alternate icons, the home screen
