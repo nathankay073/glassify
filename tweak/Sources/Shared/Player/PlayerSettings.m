@@ -3,6 +3,7 @@
 #import "Settings/SGModPage.h"
 #import "PlayerSettings.h"
 #import "Shared/AnimatedArtwork/AnimatedArtwork.h"
+#import "Shared/LockScreenLyrics/LockScreenLyrics.h"
 #import "Shared/Lyrics/Lyrics.h"
 
 // Like and dislike is the one lock screen control a song gets. Spotify's flags for podcasts, audiobooks and its
@@ -11,10 +12,15 @@
 UIViewController *SGLockScreenWidgetPage(void) {
     NSArray *motion = SGLockScreenMotionRows();
     NSArray<SGModSection *> *mod = motion.count ? @[SGSection(@"Lock screen artwork", motion)] : @[];
+    NSMutableArray *controls = [NSMutableArray arrayWithObject:
+        SGFlagRow(@"Like and dislike buttons", @"ios-feature-lockscreen.like_dislike_enabled")];
+    if (@available(iOS 26.0, *)) {
+        [controls addObject:SGOptionRow(@"Star switches to lyrics",
+                                        @"The star in the lock screen player flips between full-screen lyrics and the artwork. "
+                                        @"Takes the place of Spotify's like button there", SGKeyLockScreenStar)];
+    }
     return [[SGModPage alloc] initWithTitle:@"Lock screen" intro:SGRestartNote sections:[mod arrayByAddingObjectsFromArray:@[
         SGSection(@"Lyrics", @[SGLockScreenLyricsRow()]),
-        SGSection(@"Controls", @[
-            SGFlagRow(@"Like and dislike buttons", @"ios-feature-lockscreen.like_dislike_enabled"),
-        ]),
+        SGSection(@"Controls", controls),
     ]] footer:nil];
 }
